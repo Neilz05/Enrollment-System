@@ -26,7 +26,7 @@ public class CourseController implements DBOperations {
 			con = DBManagerFactory.getDBConnection();
 			
 			stmt1 = con.createStatement();
-			String strQuery1 = "select courseid, coursename, term, p.professorname, t.taname from app_course c, app_professor p, app_ta t"
+			String strQuery1 = "select courseid, coursename, term, p.professorname, t.taname, timeschedule from app_course c, app_professor p, app_ta t"
 					+ " where courseid = '"+key+"' and c.professorid = p.professorid and t.taid = c.taid  and rownum = 1";
 						
 			rs = stmt1.executeQuery(strQuery1);
@@ -37,7 +37,9 @@ public class CourseController implements DBOperations {
 				bo.setCoursename(rs.getString(2));
 				bo.setTerm(rs.getString(3));
 				bo.setProfessorid(rs.getString(4));
-				bo.setTaid(rs.getString(5));			
+				bo.setTaid(rs.getString(5));
+				//added
+				bo.setTimeschechule(rs.getString(6));
 			}
 			
 		}
@@ -76,8 +78,9 @@ public class CourseController implements DBOperations {
 			con = DBManagerFactory.getDBConnection();
 			
 			stmt1 = con.createStatement();
-			String strQuery1 = "select courseid, coursename, term, professorid, taid from app_course where courseid = '"+key+"' and rownum = 1";
-						
+			//String strQuery1 = "select courseid, coursename, term, professorid, taid from app_course where courseid = '"+key+"' and rownum = 1";
+			//changed to
+			String strQuery1 = "select courseid, coursename, term, professorid, taid, timeschedule from app_course where courseid = '"+key+"' and rownum = 1";
 			rs = stmt1.executeQuery(strQuery1);
 			
 			while(rs.next())
@@ -86,7 +89,9 @@ public class CourseController implements DBOperations {
 				bo.setCoursename(rs.getString(2));
 				bo.setTerm(rs.getString(3));
 				bo.setProfessorid(rs.getString(4));
-				bo.setTaid(rs.getString(5));			
+				bo.setTaid(rs.getString(5));
+				//added
+				bo.setTimeschechule(rs.getString(6));
 			}
 			
 		}
@@ -128,9 +133,12 @@ public class CourseController implements DBOperations {
 			
 			
 			stmt1 = con.createStatement();
-			String strQuery1 = "insert into app_course (courseid, coursename, term, professorid, taid) values "
-					+ "('"+bo.getCourseid()+"','"+bo.getCoursename()+"','"+bo.getTerm()+"','"+bo.getProfessorid()+"','"+bo.getTaid()  +"')";			
-			
+			//String strQuery1 = "insert into app_course (courseid, coursename, term, professorid, taid) values "
+					//+ "('"+bo.getCourseid()+"','"+bo.getCoursename()+"','"+bo.getTerm()+"','"+bo.getProfessorid()+"','"+bo.getTaid()  +"')";
+			//changed to
+			String strQuery1 = "insert into app_course (courseid, coursename, term, professorid, taid, timeschedule) values "
+					+ "('"+bo.getCourseid()+"','"+bo.getCoursename()+"','"+bo.getTerm()+"','"+bo.getProfessorid()+"','"+bo.getTaid()  +"','"
+					+bo.getTimeschechule() + "')";
 			stmt1.executeQuery(strQuery1);
 			
 			con.commit();
@@ -170,7 +178,9 @@ public class CourseController implements DBOperations {
 		ResultSet rs = null;
 		try
 		{
-			String strQuery = "select courseid, coursename, term, professorid, taid from app_course order by courseid";
+			//String strQuery = "select courseid, coursename, term, professorid, taid from app_course order by courseid";
+			//changed to
+			String strQuery = "select courseid, coursename, term, professorid, taid, timeschedule from app_course order by courseid";
 			con = DBManagerFactory.getDBConnection();
 			stmt = con.createStatement();			
 			rs = stmt.executeQuery(strQuery);
@@ -183,7 +193,8 @@ public class CourseController implements DBOperations {
 		        dataRow.put("Term", rs.getString(3));
 		        dataRow.put("Professor", rs.getString(4));
 		        dataRow.put("TA", rs.getString(5));
-		 
+		        //added
+		 		dataRow.put("TimeSchedule",rs.getString(6));
 		        allData.add(dataRow);		  
 			}
 			
@@ -271,10 +282,12 @@ public class CourseController implements DBOperations {
 			
 			
 			stmt1 = con.createStatement();
-			String strQuery1 = "UPDATE app_course SET coursename = '"+bo.getCoursename()+"' , term = '"+bo.getTerm()+"', professorid = '"+bo.getProfessorid()+"' , taid = '"+bo.getTaid()  +"' "
-					+ "WHERE courseid = '"+bo.getCourseid()+"'";			
-			
-					
+			//String strQuery1 = "UPDATE app_course SET coursename = '"+bo.getCoursename()+"' , term = '"+bo.getTerm()+"', professorid = '"+bo.getProfessorid()+"' , taid = '"+bo.getTaid()  +"' "
+				//	+ "WHERE courseid = '"+bo.getCourseid()+"'";
+			//changed to
+			String strQuery1 = "UPDATE app_course SET coursename = '"+bo.getCoursename()+"' , term = '"+bo.getTerm()+"', professorid = '"+bo.getProfessorid()+"' , taid = '"+bo.getTaid()  +"', timeschedule = '"+bo.getTimeschechule()+"' "
+					+ "WHERE courseid = '"+bo.getCourseid()+"'";
+
 			stmt1.executeQuery(strQuery1);
 			
 			con.commit();

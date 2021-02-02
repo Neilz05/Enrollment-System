@@ -115,6 +115,7 @@ public class CoursePage extends Application  {
 
 	        TextField userTextField1 = new TextField();
 	        grid.add(userTextField1, 1, 2);
+
 	        
 	        Label sEmail = new Label("Term:");
 	        grid.add(sEmail, 0, 3);
@@ -130,7 +131,16 @@ public class CoursePage extends Application  {
 	        
 	        ChoiceBox cbox = new ChoiceBox(); 
 	        //cbox.getItems().addAll   ("Admin1", "Admin2", "Admin3", "Admin4", "Admin5");
-	        
+
+		//added
+		Label sTime = new Label("Time Schedule:");
+		grid.add(sTime, 0, 6);
+
+		TextField userTextField3 = new TextField();
+		grid.add(userTextField3, 1, 6);
+		//
+
+
 	        Connection con = null;
 	        Statement stm = null;
 	        ResultSet rs = null;
@@ -209,7 +219,10 @@ public class CoursePage extends Application  {
 	        	{	        		
 	        	}
 	        }
-	        
+	        //added
+
+
+			//
 	        grid.add(cbox1, 1, 5);
 	        
 	        Button btn = new Button("Save Details");
@@ -234,9 +247,11 @@ public class CoursePage extends Application  {
 	                String str2 = userTextField1.getText();
 	                String str3 = userTextField2.getText();
 	                String str4 = (String)cbox.getValue();
-	                String str5 = (String)cbox1.getValue();    
-	            
-	                if( null == str5 || null == str4 || "".equalsIgnoreCase(str3) ||"".equalsIgnoreCase(str2) || "".equalsIgnoreCase(str1) )
+	                String str5 = (String)cbox1.getValue();
+	                //added
+	            	String str6 = userTextField3.getText();
+	            	//
+	                if( null == str5 || null == str4 || "".equalsIgnoreCase(str3) ||"".equalsIgnoreCase(str2) || "".equalsIgnoreCase(str1) || "".equalsIgnoreCase(str6))
 	                {
 	                	actiontarget.setFill(Color.FIREBRICK);
 	                    actiontarget.setText("Please provide all values");
@@ -249,7 +264,10 @@ public class CoursePage extends Application  {
 	                boObj.setCoursename(str2);
 	                boObj.setTerm(str3);
 	                boObj.setProfessorid(str4);
-	                boObj.setTaid(str5);	                
+	                boObj.setTaid(str5);
+					//added
+					boObj.setTimeschechule(str6);
+					//
 	                
 	                CourseController obj = new CourseController();
 	                String strStatus = obj.addOperation(boObj);

@@ -7,6 +7,12 @@ public class CourseBO {
 	private String term;
 	private String professorid;
 	private String taid;
+	//added
+	private String timeschechule;
+
+
+
+	//
 	public String getCoursename() {
 		return coursename;
 	}
@@ -37,7 +43,13 @@ public class CourseBO {
 	public void setTaid(String taid) {
 		this.taid = taid;
 	}
-	
-	
 
+	//added
+	public void setTimeschechule(String timeschechule) {
+		this.timeschechule = timeschechule;
+	}
+
+	public String getTimeschechule() {
+		return timeschechule;
+	}	//
 }

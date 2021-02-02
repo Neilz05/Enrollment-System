@@ -204,12 +204,23 @@ public class CourseUpdate extends Application  {
 	    	        Label sPhone = new Label("Professor:");
 	    	        grid.add(sPhone, 0, 14);
 
+
+
 	    	       // TextField userTextField3 = new TextField();
 	    	        //grid.add(userTextField3, 1, 4);
 	    	        
 	    	        ChoiceBox cbox = new ChoiceBox(); 
 	    	        //cbox.getItems().addAll   ("Admin1", "Admin2", "Admin3", "Admin4", "Admin5");
-	    	        
+
+					//added
+					Label sTime = new Label("Time Schedule:");
+					grid.add(sTime, 0, 16);
+
+					TextField userTextField3 = new TextField();
+					grid.add(userTextField3, 1, 16);
+					userTextField3.setText(boObj.getTimeschechule());
+					//
+
 	    	        Connection con = null;
 	    	        Statement stm = null;
 	    	        ResultSet rs = null;
@@ -317,9 +328,11 @@ public class CourseUpdate extends Application  {
 	    	                String str2 = userTextField1.getText();
 	    	                String str3 = userTextField2.getText();
 	    	                String str4 = (String)cbox.getValue();
-	    	                String str5 = (String)cbox1.getValue();    
-	    	            
-	    	                if( null == str5 || null == str4 || "".equalsIgnoreCase(str3) ||"".equalsIgnoreCase(str2) || "".equalsIgnoreCase(str1) )
+	    	                String str5 = (String)cbox1.getValue();
+	    	                //added
+							String str6 = userTextField3.getText();
+
+	    	                if( null == str5 || null == str4 || "".equalsIgnoreCase(str3) ||"".equalsIgnoreCase(str2) || "".equalsIgnoreCase(str1) || "".equalsIgnoreCase(str6))
 	    	                {
 	    	                	actiontarget.setFill(Color.FIREBRICK);
 	    	                    actiontarget.setText("Please provide all values");
@@ -330,7 +343,8 @@ public class CourseUpdate extends Application  {
 	    	                boObj.setTerm(str3);
 	    	                boObj.setProfessorid(str4);
 	    	                boObj.setTaid(str5);	                
-	    	                
+	    	                //added
+							boObj.setTimeschechule(str6);
 	    	                CourseController obj = new CourseController();
 	    	                String strStatus = obj.updateOperation(boObj);
 	    	                
